@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Bootstrap Final Sınavı</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-light bg-warning px-4">
+  <a class="navbar-brand fw-bold">Atabeyden.com</a>
+  <div class="ms-auto">
+    <button class="btn btn-outline-dark btn-sm me-2">Giriş Yap</button>
+    <button class="btn btn-dark btn-sm">Hesap Aç</button>
+  </div>
+</nav>
+
+<!-- ARAMA -->
+<div class="bg-white py-3 border-bottom">
+  <div class="container">
+    <input class="form-control form-control-lg" placeholder="Ara: araba, daire, telefon">
+  </div>
+</div>
+
+<div class="container my-4">
+  <div class="row">
+
+    <!-- SIDEBAR -->
+    <div class="col-lg-3 mb-3">
+      <div class="list-group mb-3">
+        <div class="list-group-item fw-bold">Emlak</div>
+        <a class="list-group-item">Satılık</a>
+        <a class="list-group-item">Kiralık</a>
+      </div>
+
+      <div class="list-group mb-3">
+        <div class="list-group-item fw-bold">Vasıta</div>
+        <a class="list-group-item">Otomobil</a>
+        <a class="list-group-item">Motosiklet</a>
+      </div>
+
+      <div class="list-group">
+        <div class="list-group-item fw-bold">Alışveriş</div>
+        <a class="list-group-item">Sıfır Ürünler</a>
+        <a class="list-group-item">İkinci El</a>
+        <a class="list-group-item">Elektronik</a>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="col-lg-9">
+
+      <div class="row g-3 mb-4">
+
+        <!-- SLIDER -->
+        <div class="col-lg-8">
+          <div class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner rounded">
+              <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+                     class="d-block w-100" style="height:300px;object-fit:cover;">
+              </div>
+              <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+                     class="d-block w-100" style="height:300px;object-fit:cover;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- POPÜLER MARKALAR -->
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Popüler Markalar</div>
+            <div class="card-body">
+              <div class="row g-2 text-center">
+
+                <!-- 12 MARKA LOGO -->
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2018/02/BMW-Logo.png" class="img-fluid" style="height:45px;"></div>
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2025/09/Bentley-Logo.png" class="img-fluid" style="height:45px;"></div>
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2016/10/Apple-Logo.png" class="img-fluid" style="height:45px;"></div>
+
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2018/02/Ford-Logo.png" class="img-fluid" style="height:45px;"></div>
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2018/04/Mercedes-Benz-Logo.png" class="img-fluid" style="height:45px;"></div>
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2021/04/Ferrari-logo.png" class="img-fluid" style="height:45px;"></div>
+
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2016/10/Adidas-Logo.png" class="img-fluid" style="height:45px;"></div>
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2021/11/Nike-Logo.png" class="img-fluid" style="height:45px;"></div>
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2025/08/Adidas-Originals-Logo.png" class="img-fluid" style="height:45px;"></div>
+
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2016/10/Apple-Logo.png" class="img-fluid" style="height:45px;"></div>
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2017/06/Samsung-Logo-2.png" class="img-fluid" style="height:45px;"></div>
+                <div class="col-4"><img src="https://1000logos.net/wp-content/uploads/2020/05/AMD-Logo.png" class="img-fluid" style="height:45px;"></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- VİTRİN -->
+      <div class="card">
+        <div class="card-header fw-bold">Vitrin İlanlar</div>
+        <div class="card-body">
+          <div class="row g-3">
+
+            <div class="col-md-3">
+              <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+                     class="card-img-top" style="height:180px;object-fit:cover;">
+                <div class="card-body">
+                  <h6>3+1 Satılık Daire</h6>
+                  <p class="text-danger fw-bold">2.750.000 TL</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+                     class="card-img-top" style="height:180px;object-fit:cover;">
+                <div class="card-body">
+                  <h6>2019 Model Otomobil</h6>
+                  <p class="text-danger fw-bold">950.000 TL</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"
+                     class="card-img-top" style="height:180px;object-fit:cover;">
+                <div class="card-body">
+                  <h6>Akıllı Telefon</h6>
+                  <p class="text-danger fw-bold">32.000 TL</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6"
+                     class="card-img-top" style="height:180px;object-fit:cover;">
+                <div class="card-body">
+                  <h6>Kiralık Daire</h6>
+                  <p class="text-danger fw-bold">6.500 TL</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="bg-dark text-light text-center py-3 mt-4">
+  © 2026 Bootstrap Web Sınavı
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
