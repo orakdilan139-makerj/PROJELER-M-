@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelişmiş ÖBS Paneli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #000000; padding: 30px; color: #e2e8f0; }
+        
+        .container { max-width: 1200px; margin: 0 auto; background: #0f172a; border-radius: 12px; border: 1px solid #1e293b; padding-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; border-bottom: 1px solid #1e293b; background: #080c17; border-top-left-radius: 12px; border-top-right-radius: 12px; }
+        .header h1 { font-size: 24px; font-weight: 700; color: #ffffff; text-shadow: 0 0 10px rgba(59, 130, 246, 0.4); }
+        
+        .btn { padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: 0.2s; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #2563eb; color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 30px; }
+        .stat-card { background: #000000; padding: 20px; border-radius: 12px; border-top: 1px solid #1e293b; border-right: 1px solid #1e293b; border-bottom: 1px solid #1e293b; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .stat-card h3 { font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .stat-card .value { font-size: 28px; font-weight: 700; color: #ffffff; }
+
+        .search-box { padding: 0 30px 20px 30px; display: flex; gap: 15px; }
+        .search-box input { flex: 1; padding: 12px 20px; background: #000000; border: 1px solid #374151; color: white; border-radius: 8px; font-size: 15px; outline: none; transition: 0.3s; }
+        .search-box input:focus { border-color: #3b82f6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+
+        .table-card { margin: 0 30px; background: #000000; border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background-color: #080c17; color: #60a5fa; font-weight: 600; font-size: 13px; padding: 16px 20px; border-bottom: 2px solid #1e293b; text-transform: uppercase; }
+        td { padding: 16px 20px; border-bottom: 1px solid #1e293b; font-size: 14px; color: #cbd5e1; }
+        tr:hover { background-color: #0f172a; }
+
+        .badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-success { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-danger { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        .action-btns { display: flex; gap: 8px; }
+        .btn-edit { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border: 1px solid #3b82f6; padding: 6px 12px; font-size: 12px; border-radius: 6px; }
+        .btn-edit:hover { background: #3b82f6; color: white; }
+        .btn-delete { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid #ef4444; padding: 6px 12px; font-size: 12px; border-radius: 6px; }
+        .btn-delete:hover { background: #ef4444; color: white; }
+
+        /* Modal (Açılır Pencere) */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(5px); z-index: 1000; }
+        .modal { background: #0f172a; border: 1px solid #1e3a8a; width: 400px; padding: 30px; border-radius: 16px; box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
+        .modal h2 { margin-bottom: 20px; font-size: 20px; color: #ffffff; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #60a5fa; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 10px; background: #000000; border: 1px solid #374151; color: white; border-radius: 6px; font-size: 14px; }
+        .form-group input:focus { border-color: #3b82f6; outline: none; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; }
+        
+        #toast { position: fixed; bottom: 20px; right: 20px; background: #2563eb; color: white; padding: 12px 24px; border-radius: 8px; display: none; font-weight: 500; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 9999; border: 1px solid #3b82f6; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🎓 Gelişmiş ÖBS Yönetim Paneli</h1>
+        <a href="form.html" class="btn btn-primary">+ Yeni Öğrenci Ekle</a>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card" style="border-left: 5px solid #3b82f6;"><h3>Toplam Öğrenci</h3><div class="value" id="stat-total">0</div></div>
+        <div class="stat-card" style="border-left: 5px solid #8b5cf6;"><h3>Sınıf Ortalaması</h3><div class="value" id="stat-avg">0.00</div></div>
+        <div class="stat-card" style="border-left: 5px solid #10b981;"><h3>Geçen Öğrenci</h3><div class="value" id="stat-passed">0</div></div>
+        <div class="stat-card" style="border-left: 5px solid #ef4444;"><h3>Kalan Öğrenci</h3><div class="value" id="stat-failed">0</div></div>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Öğrenci Adı veya Numarası ile ara..." onkeyup="aramaYap()">
+    </div>
+
+    <div class="table-card">
+        <table>
+            <thead><tr><th>ID</th><th>Ad Soyad</th><th>Numara</th><th>Vize</th><th>Final</th><th>Ortalama</th><th>Durum</th><th>İşlemler</th></tr></thead>
+            <tbody id="liste"><tr><td colspan="8" style="text-align:center; padding:30px;">Veriler yükleniyor...</td></tr></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <h2>Notları Düzenle</h2>
+        <form id="editForm">
+            <input type="hidden" id="edit_id">
+            <div class="form-group"><label>Ad Soyad</label><input type="text" id="edit_ad" required></div>
+            <div class="form-group" style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Vize</label><input type="number" id="edit_vize" min="0" max="100" required oninput="modalNotHesapla()"></div>
+                <div style="flex:1;"><label>Final</label><input type="number" id="edit_final" min="0" max="100" required oninput="modalNotHesapla()"></div>
+            </div>
+            <div class="form-group" style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>Ortalama</label><input type="text" id="edit_ortalama" readonly style="background:#1f2937; color:#94a3b8;"></div>
+                <div style="flex:1;"><label>Harf Notu</label><input type="text" id="edit_harf" readonly style="background:#1f2937; color:#94a3b8;"></div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn" style="background:#1f2937; color:white;" onclick="kapatModal()">İptal</button>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="toast">İşlem başarılı!</div>
+
+<script>
+    let globalVeri = [];
+    function verileriGetir() {
+        fetch("listele.php").then(res => res.json()).then(data => {
+            if(data.hata) { document.getElementById("liste").innerHTML = "<tr><td colspan='8'>Hata oluştu.</td></tr>"; return; }
+            globalVeri = data; tabloyuCiz(globalVeri); istatistikleriHesapla(globalVeri);
+        });
+    }
+
+    function tabloyuCiz(data) {
+        let html = "";
+        if(data.length === 0) { html = "<tr><td colspan='8' style='text-align:center; padding:30px; color:#64748b;'>Kayıt bulunamadı.</td></tr>"; } 
+        else {
+            data.forEach(ogrenci => {
+                let isPassed = ogrenci.harf.includes("Geçti") || ogrenci.harf.includes("A") || ogrenci.harf.includes("B") || ogrenci.harf.includes("C") || ogrenci.harf.includes("D");
+                let badgeClass = isPassed ? "badge-success" : "badge-danger";
+                html += `<tr>
+                    <td style="color:#64748b;">#${ogrenci.id}</td>
+                    <td style="font-weight:500; color:#fff;">${ogrenci.ad}</td><td>${ogrenci.numara}</td>
+                    <td>${ogrenci.vize}</td><td>${ogrenci.final}</td>
+                    <td style="font-weight:600; color:#3b82f6;">${parseFloat(ogrenci.ortalama).toFixed(2)}</td>
+                    <td><span class="badge ${badgeClass}">${ogrenci.harf}</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn btn-edit" onclick="duzenle(${ogrenci.id})">Düzenle</button>
+                            <button class="btn btn-delete" onclick="sil(${ogrenci.id})">Sil</button>
+                        </div>
+                    </td>
+                </tr>`;
+            });
+        }
+        document.getElementById("liste").innerHTML = html;
+    }
+
+    function istatistikleriHesapla(data) {
+        document.getElementById("stat-total").innerText = data.length;
+        let toplamOrtalama = 0, gecenSayisi = 0, kalanSayisi = 0;
+        data.forEach(ogr => {
+            toplamOrtalama += parseFloat(ogr.ortalama);
+            let isPassed = ogr.harf.includes("Geçti") || ogr.harf.includes("A") || ogr.harf.includes("B") || ogr.harf.includes("C") || ogr.harf.includes("D");
+            if(isPassed) gecenSayisi++; else kalanSayisi++;
+        });
+        document.getElementById("stat-avg").innerText = data.length > 0 ? (toplamOrtalama / data.length).toFixed(2) : "0.00";
+        document.getElementById("stat-passed").innerText = gecenSayisi;
+        document.getElementById("stat-failed").innerText = kalanSayisi;
+    }
+
+    function aramaYap() {
+        let kelime = document.getElementById("searchInput").value.toLowerCase();
+        let filtrelenmis = globalVeri.filter(ogr => ogr.ad.toLowerCase().includes(kelime) || ogr.numara.includes(kelime));
+        tabloyuCiz(filtrelenmis);
+    }
+
+    function sil(id){
+        if(confirm("Silmek istediğinize emin misiniz?")) {
+            const params = new URLSearchParams(); params.append('id', id);
+            fetch("sil_2.php", { method: "POST", body: params }).then(res => res.json())
+            .then(data => { if(data.status === "success") { verileriGetir(); showToast("Kayıt silindi", "#ef4444"); } });
+        }
+    }
+
+    function duzenle(id) {
+        let ogrenci = globalVeri.find(o => o.id == id);
+        if(!ogrenci) return;
+        document.getElementById("edit_id").value = ogrenci.id; document.getElementById("edit_ad").value = ogrenci.ad;
+        document.getElementById("edit_vize").value = ogrenci.vize; document.getElementById("edit_final").value = ogrenci.final;
+        document.getElementById("edit_ortalama").value = parseFloat(ogrenci.ortalama).toFixed(2); document.getElementById("edit_harf").value = ogrenci.harf;
+        document.getElementById("editModal").style.display = "flex";
+    }
+
+    function kapatModal() { document.getElementById("editModal").style.display = "none"; }
+
+    function modalNotHesapla() {
+        let v = parseFloat(document.getElementById("edit_vize").value) || 0; let f = parseFloat(document.getElementById("edit_final").value) || 0;
+        let ort = (v * 0.4) + (f * 0.6); document.getElementById("edit_ortalama").value = ort.toFixed(2);
+        let harf = "";
+        if(ort >= 90) harf = "AA (Geçti)"; else if(ort >= 80) harf = "BB (Geçti)"; else if(ort >= 70) harf = "CC (Geçti)"; else if(ort >= 60) harf = "DD (Geçti)"; else harf = "FF (Kaldı)";
+        document.getElementById("edit_harf").value = harf;
+    }
+
+    document.getElementById("editForm").addEventListener("submit", function(e){
+        e.preventDefault();
+        const params = new URLSearchParams();
+        params.append('id', document.getElementById("edit_id").value); params.append('ad', document.getElementById("edit_ad").value);
+        params.append('vize', document.getElementById("edit_vize").value); params.append('final', document.getElementById("edit_final").value);
+        params.append('ortalama', document.getElementById("edit_ortalama").value); params.append('harf', document.getElementById("edit_harf").value);
+
+        fetch("guncelle.php", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: params })
+        .then(res => res.json()).then(data => {
+            if(data.status === "success") { kapatModal(); verileriGetir(); showToast("Notlar güncellendi!", "#34d399"); } 
+            else { alert(data.message); }
+        });
+    });
+
+    function showToast(msg, bgColor) {
+        let toast = document.getElementById("toast"); toast.innerText = msg; toast.style.background = bgColor;
+        toast.style.display = "block"; setTimeout(() => toast.style.display = "none", 3000);
+    }
+    document.addEventListener("DOMContentLoaded", verileriGetir);
+</script>
+</body>
+</html>
